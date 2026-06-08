@@ -382,3 +382,71 @@ window.innerHeight
 );
 
 });
+// =================================
+// Music
+// =================================
+
+const musicBtn =
+document.getElementById("musicBtn");
+
+const music =
+document.getElementById("music");
+
+let playing=false;
+
+musicBtn.addEventListener(
+"click",
+()=>{
+
+if(!playing){
+
+music.play();
+
+musicBtn.innerHTML=
+"🔇 Stop";
+
+playing=true;
+
+}
+else{
+
+music.pause();
+
+musicBtn.innerHTML=
+"🎵 Music";
+
+playing=false;
+
+}
+
+}
+);
+
+
+// =================================
+// Gift Animation
+// =================================
+
+const gift =
+document.getElementById("gift");
+
+if(gift){
+
+gift.addEventListener(
+"click",
+()=>{
+
+gift.innerHTML="💖";
+
+gift.style.transform=
+"scale(1.5)";
+
+setTimeout(()=>{
+
+gift.style.transform=
+"scale(1)";
+
+},800);
+
+});
+}
