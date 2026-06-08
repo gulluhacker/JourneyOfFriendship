@@ -423,3 +423,30 @@ translate(80px,-60px);
 }
 
 }
+#musicBtn{
+
+position:fixed;
+
+top:20px;
+right:20px;
+
+z-index:9999;
+
+padding:12px 18px;
+
+border:none;
+
+border-radius:50px;
+
+background:
+linear-gradient(
+45deg,
+#ff4d88,
+#a855f7
+);
+
+color:white;
+
+cursor:pointer;
+
+}
