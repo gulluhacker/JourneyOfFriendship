@@ -1,44 +1,90 @@
-// ====================================
+// ======================================
 // Scene Navigation
-// ====================================
+// ======================================
 
-let currentScene = 1;
-const totalScenes = 7;
+const scenes = document.querySelectorAll(".scene");
+const nextBtns = document.querySelectorAll(".nextBtn");
+const startBtn = document.getElementById("startBtn");
+
+let currentScene = 0;
+
+function showScene(index){
+
+scenes.forEach(scene=>{
+scene.classList.remove("active");
+});
+
+scenes[index].classList.add("active");
+
+}
 
 function nextScene(){
 
-if(currentScene < totalScenes){
-
-document
-.getElementById(`scene${currentScene}`)
-.classList.remove("active");
+if(currentScene < scenes.length-1){
 
 currentScene++;
 
-document
-.getElementById(`scene${currentScene}`)
-.classList.add("active");
+showScene(currentScene);
 
 }
 
 }
 
-// ====================================
-// Three.js Setup
-// ====================================
+if(startBtn){
+startBtn.addEventListener("click",nextScene);
+}
+
+nextBtns.forEach(btn=>{
+btn.addEventListener("click",nextScene);
+});
+
+
+// ======================================
+// Music Control
+// ======================================
+
+const musicBtn = document.getElementById("musicBtn");
+const music = document.getElementById("music");
+
+let playing = false;
+
+musicBtn.addEventListener("click",()=>{
+
+if(!playing){
+
+music.play();
+
+musicBtn.innerHTML = "🔇 Stop";
+
+playing = true;
+
+}else{
+
+music.pause();
+
+musicBtn.innerHTML = "🎵 Music";
+
+playing = false;
+
+}
+
+});
+
+
+// ======================================
+// Three.js Scene
+// ======================================
 
 const scene = new THREE.Scene();
 
-const camera =
-new THREE.PerspectiveCamera(
+const camera = new THREE.PerspectiveCamera(
 75,
 window.innerWidth/window.innerHeight,
 0.1,
 1000
 );
 
-const renderer =
-new THREE.WebGLRenderer({
+const renderer = new THREE.WebGLRenderer({
 canvas:document.querySelector("#bg"),
 alpha:true
 });
@@ -55,17 +101,17 @@ window.devicePixelRatio
 camera.position.z = 5;
 
 
-// ====================================
-// Star Universe
-// ====================================
+// ======================================
+// Stars
+// ======================================
 
 function addStar(){
 
 const geometry =
 new THREE.SphereGeometry(
 0.08,
-16,
-16
+12,
+12
 );
 
 const material =
@@ -92,18 +138,18 @@ scene.add(star);
 
 }
 
-Array(1500)
+Array(1200)
 .fill()
 .forEach(addStar);
 
 
-// ====================================
+// ======================================
 // Crystal Heart
-// ====================================
+// ======================================
 
 const heartGeometry =
 new THREE.OctahedronGeometry(
-1.5
+1.4
 );
 
 const heartMaterial =
@@ -127,17 +173,17 @@ heart.position.set(
 scene.add(heart);
 
 
-// ====================================
-// Small Floating Crystals
-// ====================================
+// ======================================
+// Floating Crystals
+// ======================================
 
 const crystals = [];
 
-for(let i=0;i<20;i++){
+for(let i=0;i<15;i++){
 
 const geo =
 new THREE.OctahedronGeometry(
-0.3
+0.25
 );
 
 const mat =
@@ -147,12 +193,15 @@ wireframe:true
 });
 
 const crystal =
-new THREE.Mesh(geo,mat);
+new THREE.Mesh(
+geo,
+mat
+);
 
 crystal.position.set(
-(Math.random()-0.5)*20,
-(Math.random()-0.5)*20,
-(Math.random()-0.5)*20
+(Math.random()-0.5)*25,
+(Math.random()-0.5)*25,
+(Math.random()-0.5)*25
 );
 
 scene.add(crystal);
@@ -162,49 +211,47 @@ crystals.push(crystal);
 }
 
 
-// ====================================
+// ======================================
 // Floating Hearts
-// ====================================
+// ======================================
 
 function createHeart(){
 
-const heart =
+const heartDiv =
 document.createElement("div");
 
-heart.innerHTML="💖";
+heartDiv.innerHTML = "💖";
 
-heart.style.position="fixed";
+heartDiv.style.position="fixed";
+heartDiv.style.left=Math.random()*100+"vw";
+heartDiv.style.bottom="-50px";
+heartDiv.style.fontSize=
+(20+Math.random()*20)+"px";
 
-heart.style.left=
-Math.random()*100+"vw";
+heartDiv.style.pointerEvents="none";
+heartDiv.style.zIndex="999";
 
-heart.style.bottom="-50px";
+document.body.appendChild(
+heartDiv
+);
 
-heart.style.fontSize=
-(20+Math.random()*25)+"px";
+let pos = 0;
 
-heart.style.pointerEvents="none";
+const move = setInterval(()=>{
 
-heart.style.zIndex="999";
+pos += 2;
 
-document.body.appendChild(heart);
-
-let pos=0;
-
-const move=setInterval(()=>{
-
-pos+=2;
-
-heart.style.bottom=
+heartDiv.style.bottom=
 pos+"px";
 
-heart.style.opacity=
-1-(pos/900);
+heartDiv.style.opacity=
+1-(pos/800);
 
-if(pos>900){
+if(pos>800){
 
 clearInterval(move);
-heart.remove();
+
+heartDiv.remove();
 
 }
 
@@ -212,14 +259,14 @@ heart.remove();
 
 }
 
-setInterval(createHeart,1200);
+setInterval(createHeart,1500);
 
 
-// ====================================
+// ======================================
 // Shooting Stars
-// ====================================
+// ======================================
 
-function shootingStar(){
+function createShootingStar(){
 
 const star =
 document.createElement("div");
@@ -234,7 +281,7 @@ star.style.background="white";
 star.style.boxShadow=
 "0 0 20px white";
 
-star.style.left="-200px";
+star.style.left="-150px";
 
 star.style.top=
 Math.random()*40+"vh";
@@ -242,25 +289,23 @@ Math.random()*40+"vh";
 star.style.transform=
 "rotate(-25deg)";
 
-star.style.zIndex="2";
+star.style.zIndex="1";
 
 document.body.appendChild(star);
 
-let x=-200;
+let x=-150;
 
-const animateStar=
-setInterval(()=>{
+const shoot=setInterval(()=>{
 
 x+=15;
 
 star.style.left=x+"px";
 
-if(x>
-window.innerWidth+300){
+if(
+x>window.innerWidth+200
+){
 
-clearInterval(
-animateStar
-);
+clearInterval(shoot);
 
 star.remove();
 
@@ -271,18 +316,47 @@ star.remove();
 }
 
 setInterval(
-shootingStar,
-4000
+createShootingStar,
+5000
 );
 
 
-// ====================================
+// ======================================
+// Gift Animation
+// ======================================
+
+const gift =
+document.querySelector(".gift");
+
+if(gift){
+
+gift.addEventListener(
+"click",
+()=>{
+
+gift.innerHTML="💖";
+
+gift.style.transform=
+"scale(1.3)";
+
+setTimeout(()=>{
+
+gift.style.transform=
+"scale(1)";
+
+},600);
+
+});
+}
+
+
+// ======================================
 // Fireworks Finale
-// ====================================
+// ======================================
 
-function createFirework(){
+function createSpark(){
 
-if(currentScene !== 7) return;
+if(currentScene !== 6) return;
 
 const spark =
 document.createElement("div");
@@ -300,9 +374,13 @@ Math.random()*100+"vh";
 spark.style.fontSize=
 (10+Math.random()*20)+"px";
 
+spark.style.pointerEvents="none";
+
 spark.style.zIndex="999";
 
-document.body.appendChild(spark);
+document.body.appendChild(
+spark
+);
 
 setTimeout(()=>{
 spark.remove();
@@ -311,21 +389,21 @@ spark.remove();
 }
 
 setInterval(
-createFirework,
-100
+createSpark,
+150
 );
 
 
-// ====================================
+// ======================================
 // Camera Motion
-// ====================================
+// ======================================
 
 let angle = 0;
 
 
-// ====================================
+// ======================================
 // Animation Loop
-// ====================================
+// ======================================
 
 function animate(){
 
@@ -333,10 +411,10 @@ requestAnimationFrame(
 animate
 );
 
-angle += 0.001;
+angle += 0.0015;
 
 camera.position.x =
-Math.sin(angle)*1.2;
+Math.sin(angle)*1.5;
 
 camera.lookAt(
 scene.position
@@ -345,7 +423,7 @@ scene.position
 heart.rotation.x += 0.01;
 heart.rotation.y += 0.01;
 
-crystals.forEach((c)=>{
+crystals.forEach(c=>{
 
 c.rotation.x += 0.01;
 c.rotation.y += 0.01;
@@ -362,9 +440,9 @@ camera
 animate();
 
 
-// ====================================
-// Resize
-// ====================================
+// ======================================
+// Resize Support
+// ======================================
 
 window.addEventListener(
 "resize",
@@ -382,71 +460,3 @@ window.innerHeight
 );
 
 });
-// =================================
-// Music
-// =================================
-
-const musicBtn =
-document.getElementById("musicBtn");
-
-const music =
-document.getElementById("music");
-
-let playing=false;
-
-musicBtn.addEventListener(
-"click",
-()=>{
-
-if(!playing){
-
-music.play();
-
-musicBtn.innerHTML=
-"🔇 Stop";
-
-playing=true;
-
-}
-else{
-
-music.pause();
-
-musicBtn.innerHTML=
-"🎵 Music";
-
-playing=false;
-
-}
-
-}
-);
-
-
-// =================================
-// Gift Animation
-// =================================
-
-const gift =
-document.getElementById("gift");
-
-if(gift){
-
-gift.addEventListener(
-"click",
-()=>{
-
-gift.innerHTML="💖";
-
-gift.style.transform=
-"scale(1.5)";
-
-setTimeout(()=>{
-
-gift.style.transform=
-"scale(1)";
-
-},800);
-
-});
-}
