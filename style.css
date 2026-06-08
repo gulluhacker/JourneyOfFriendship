@@ -294,3 +294,132 @@ padding:25px;
 }
 
   }
+/* Smooth Scene Change */
+
+.scene{
+transition:
+opacity .8s ease,
+transform .8s ease;
+}
+
+/* Letter Animation */
+
+.letter{
+
+animation:
+letterOpen 1.2s ease;
+
+transform-origin:top center;
+
+}
+
+@keyframes letterOpen{
+
+0%{
+opacity:0;
+transform:
+rotateX(-90deg);
+}
+
+100%{
+opacity:1;
+transform:
+rotateX(0deg);
+}
+
+}
+
+/* Gift Glow */
+
+.gift-box{
+
+text-shadow:
+0 0 20px #ffd700,
+0 0 40px #ff69b4,
+0 0 80px #a855f7;
+
+}
+
+/* Final Scene Glow */
+
+.final-title{
+
+animation:
+pulseGlow 2s infinite;
+
+}
+
+@keyframes pulseGlow{
+
+0%,100%{
+
+text-shadow:
+0 0 20px #ff69b4,
+0 0 40px #a855f7;
+
+}
+
+50%{
+
+text-shadow:
+0 0 40px #ff69b4,
+0 0 80px #a855f7,
+0 0 120px #48dbfb;
+
+}
+
+}
+
+/* Floating Blur Lights */
+
+.blur-light{
+
+position:fixed;
+
+width:250px;
+height:250px;
+
+border-radius:50%;
+
+filter:blur(100px);
+
+pointer-events:none;
+
+z-index:-1;
+
+animation:
+moveLight 10s infinite alternate;
+
+}
+
+.light1{
+
+background:#ff4d88;
+
+top:10%;
+left:5%;
+
+}
+
+.light2{
+
+background:#a855f7;
+
+bottom:10%;
+right:5%;
+
+}
+
+@keyframes moveLight{
+
+from{
+transform:
+translate(0,0);
+}
+
+to{
+transform:
+translate(80px,-60px);
+}
+
+}
