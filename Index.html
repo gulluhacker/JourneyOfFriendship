@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Journey Of Friendship</title>
+<title>Journey Of Friendship 💖</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -16,40 +16,35 @@
 
 <body>
 
-<!-- 3D Background -->
-  <div class="blur-light light1"></div>
-<div class="blur-light light2"></div>
-
 <canvas id="bg"></canvas>
-  <button id="musicBtn">
-🎵 Music
-</button>
-
-<audio id="music" loop>
-<source src="music.mp3" type="audio/mpeg">
-</audio>
 
 <!-- Scene 1 -->
 
-<section class="scene active" id="scene1">
+<section class="scene active">
 
-<h1>A Special Journey Awaits ✨</h1>
+<div class="glass">
+
+<h1>✨ A Special Journey Awaits ✨</h1>
 
 <p>
-A friendship story created especially for someone special...
+A friendship story created especially for someone special.
 </p>
 
-<button onclick="nextScene()">
+<button id="startBtn">
 Begin Journey 🚀
 </button>
+
+</div>
 
 </section>
 
 <!-- Scene 2 -->
 
-<section class="scene" id="scene2">
+<section class="scene">
 
-<h1 class="glow">
+<div class="glass">
+
+<h1 class="gold">
 Masrath Mehak 💖
 </h1>
 
@@ -57,15 +52,19 @@ Masrath Mehak 💖
 This journey is dedicated to an amazing friend.
 </p>
 
-<button onclick="nextScene()">
+<button class="nextBtn">
 Continue ✨
 </button>
+
+</div>
 
 </section>
 
 <!-- Scene 3 -->
 
-<section class="scene" id="scene3">
+<section class="scene">
+
+<div class="glass">
 
 <img src="friends.png" class="friend-image">
 
@@ -73,17 +72,21 @@ Continue ✨
 Some friendships become the most beautiful part of life.
 </h2>
 
-<button onclick="nextScene()">
+<button class="nextBtn">
 Next ❤️
 </button>
+
+</div>
 
 </section>
 
 <!-- Scene 4 -->
 
-<section class="scene" id="scene4">
+<section class="scene">
 
-<h1>Memories 🌸</h1>
+<div class="glass">
+
+<h1>🌸 Memories 🌸</h1>
 
 <div class="memory-grid">
 
@@ -105,33 +108,39 @@ Next ❤️
 
 </div>
 
-<button onclick="nextScene()">
+<button class="nextBtn">
 Continue 🌌
 </button>
+
+</div>
 
 </section>
 
 <!-- Scene 5 -->
 
-<section class="scene" id="scene5">
+<section class="scene">
 
-<div class="gift-box" id="gift">
+<div class="glass">
+
+<div class="gift">
 🎁
 </div>
 
 <h2>
-Tap below to open your gift
+A Special Gift Awaits
 </h2>
 
-<button onclick="nextScene()">
+<button class="nextBtn">
 Open Gift 💌
 </button>
+
+</div>
 
 </section>
 
 <!-- Scene 6 -->
 
-<section class="scene" id="scene6">
+<section class="scene">
 
 <div class="letter">
 
@@ -149,17 +158,19 @@ Happy Best Friends Day 💖
 
 </p>
 
-</div>
-
-<button onclick="nextScene()">
+<button class="nextBtn">
 Final Surprise ✨
 </button>
+
+</div>
 
 </section>
 
 <!-- Scene 7 -->
 
-<section class="scene" id="scene7">
+<section class="scene">
+
+<div class="glass">
 
 <h1 class="final-title">
 
@@ -181,7 +192,19 @@ Made With Friendship ❤️
 
 </p>
 
+</div>
+
 </section>
+
+<!-- Music -->
+
+<button id="musicBtn">
+🎵 Music
+</button>
+
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <script src="script.js"></script>
 
